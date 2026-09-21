@@ -56,5 +56,7 @@ public sealed record FaixaDePeso
 
     /// <inheritdoc />
     public override string ToString()
-        => Aberta ? $"acima: {Preco:0.00} + {PorKgExcedente:0.00}/kg" : $"até {AteKg}kg: {Preco:0.00}";
+        => Aberta
+            ? $"acima: {Formato.Moeda(Preco)} + {Formato.Moeda(PorKgExcedente)}/kg"
+            : $"até {Formato.Peso(AteKg ?? 0)}kg: {Formato.Moeda(Preco)}";
 }

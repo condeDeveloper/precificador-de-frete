@@ -10,7 +10,7 @@ public sealed record Parcela(string Item, decimal Valor, string Detalhe = "")
 {
     /// <inheritdoc />
     public override string ToString()
-        => string.IsNullOrEmpty(Detalhe) ? $"{Item}: {Valor:0.00}" : $"{Item}: {Valor:0.00} ({Detalhe})";
+        => string.IsNullOrEmpty(Detalhe) ? $"{Item}: {Formato.Moeda(Valor)}" : $"{Item}: {Formato.Moeda(Valor)} ({Detalhe})";
 }
 
 /// <summary>
@@ -68,7 +68,7 @@ public sealed record Cotacao
         var linhas = new List<string>
         {
             $"{Transportadora} — {Zonas.Descrever(Zona)}",
-            $"  peso real {PesoReal:0.###} kg, cubado {PesoCubado:0.###} kg, taxável {PesoTaxavel:0.###} kg",
+            $"  peso real {Formato.Peso(PesoReal)} kg, cubado {Formato.Peso(PesoCubado)} kg, taxável {Formato.Peso(PesoTaxavel)} kg",
         };
 
         foreach (var parcela in Parcelas)
@@ -76,8 +76,9 @@ public sealed record Cotacao
             linhas.Add($"  {parcela}");
         }
 
-        linhas.Add($"  ICMS: {Icms:0.00}");
-        linhas.Add($"  TOTAL: {Total:0.00} — entrega em {Entrega:dd/MM/yyyy} ({PrazoEmDiasUteis} dias úteis)");
+        linhas.Add($"  ICMS: {Formato.Moeda(Icms)}");
+        linhas.Add($"  TOTAL: {Formato.Moeda(Total)} — entrega em "
+            + $"{Entrega:dd'/'MM'/'yyyy} ({PrazoEmDiasUteis} dias úteis)");
 
         foreach (var observacao in Observacoes)
         {

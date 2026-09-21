@@ -57,7 +57,7 @@ public sealed class Precificador
                 parcelas.Add(new Parcela(
                     "ad valorem",
                     Arredondar(pedido.ValorDaNota * tabela.AdValorem),
-                    $"{tabela.AdValorem:P2} de {pedido.ValorDaNota:0.00}"));
+                    $"{Formato.Razao(tabela.AdValorem)} de {Formato.Moeda(pedido.ValorDaNota)}"));
             }
 
             if (tabela.Gris > 0)
@@ -65,7 +65,7 @@ public sealed class Precificador
                 parcelas.Add(new Parcela(
                     "GRIS",
                     Arredondar(pedido.ValorDaNota * tabela.Gris),
-                    $"{tabela.Gris:P2} de {pedido.ValorDaNota:0.00}"));
+                    $"{Formato.Razao(tabela.Gris)} de {Formato.Moeda(pedido.ValorDaNota)}"));
             }
         }
 
@@ -76,7 +76,7 @@ public sealed class Precificador
             parcelas.Add(new Parcela(
                 "pedágio",
                 Arredondar(fracoes * tabela.PedagioPor100Kg),
-                $"{fracoes} × {tabela.PedagioPor100Kg:0.00}"));
+                $"{Formato.Peso(fracoes)} × {Formato.Moeda(tabela.PedagioPor100Kg)}"));
         }
 
         var prazo = preco.PrazoEmDiasUteis;
@@ -97,8 +97,8 @@ public sealed class Precificador
 
         if (tabela.Minimo > 0 && subtotal < tabela.Minimo)
         {
-            parcelas.Add(new Parcela("complemento de mínimo", Arredondar(tabela.Minimo - subtotal), $"mínimo {tabela.Minimo:0.00}"));
-            observacoes.Add($"O frete calculado ficou abaixo do mínimo de {tabela.Minimo:0.00}.");
+            parcelas.Add(new Parcela("complemento de mínimo", Arredondar(tabela.Minimo - subtotal), $"mínimo {Formato.Moeda(tabela.Minimo)}"));
+            observacoes.Add($"O frete calculado ficou abaixo do mínimo de {Formato.Moeda(tabela.Minimo)}.");
             subtotal = tabela.Minimo;
         }
 
@@ -110,7 +110,7 @@ public sealed class Precificador
 
         if (pesoCubado > pesoReal)
         {
-            observacoes.Add($"A cubagem mandou no preço: {pesoCubado:0.###} kg contra {pesoReal:0.###} kg reais.");
+            observacoes.Add($"A cubagem mandou no preço: {Formato.Peso(pesoCubado)} kg contra {Formato.Peso(pesoReal)} kg reais.");
         }
 
         return new Cotacao
