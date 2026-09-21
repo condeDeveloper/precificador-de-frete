@@ -24,8 +24,8 @@ Rodo Econômica — outra região
   GRIS: 2,00 (0,08% de 2500,00)
   pedágio: 9,00 (2 × 4,50)
   taxa de área: 48,00 (acesso fluvial)
-  ICMS: 50,66
-  TOTAL: 418,14 — entrega em 06/10/2026 (15 dias úteis)
+  ICMS: 50,11
+  TOTAL: 417,59 — entrega em 13/10/2026 (15 dias úteis)
   * 69450-000 é acesso fluvial: +6 dia(s) útil(eis).
   * A cubagem mandou no preço: 144 kg contra 3 kg reais.
 ```
